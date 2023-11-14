@@ -18,9 +18,9 @@ int main(int argc, char**argv){
     std::vector<double> theta(N);
     randanggen(theta, seed);
 
-    std::vector<double> pos = {0.0,0.0};
+    std::vector<double> pos = {0.0,0.0}; //Posicion del primer monomero
 
-    std::ofstream fout (nombre);
+    std::ofstream fout (nombre); //Nombre de un archivo para guardar los valores de cada posición 
 
     fout << pos[0] << "\t" << pos[1] << "\n";
 
