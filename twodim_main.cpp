@@ -6,8 +6,7 @@
 #include <fstream>
 #include "twodim.h"
 
-void newposition(std::vector<double> &position, double angle );
-void randanggen(std::vector<double> &theta, int seed);
+
 
 int main(int argc, char**argv){
 
@@ -18,19 +17,23 @@ int main(int argc, char**argv){
     std::vector<double> theta(N);
     randanggen(theta, seed);
 
-    std::vector<double> pos = {0.0,0.0}; //Posicion del primer monomero
+    std::vector<std::vector<double>> pos(N+1) ; //Posicion del primer monomero
 
     std::ofstream fout (nombre); //Nombre de un archivo para guardar los valores de cada posición 
 
-    fout << pos[0] << "\t" << pos[1] << "\n";
+    genposition(pos, theta);
+    print(pos, fout);
 
-    for (auto val: theta){
-        newposition(pos, val);
-        fout << pos[0] << "\t" << pos[1] << "\n";
-    }
+    
 
     fout.close();
-
+    //datos de la longitud promedio
+    std::ofstream longitud("longitud.txt");
+    for (int i=0; i < 800; i++){
+      randanggen(theta, i);
+      genposition(pos, theta);
+      longitud << i << "\t" << dist2d(pos) <<"\n";
+    }
     return 0;
 
 }
