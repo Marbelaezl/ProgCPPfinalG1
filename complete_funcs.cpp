@@ -31,6 +31,7 @@ void randanggenaux(std::vector<double> &anglevec, int seed){
 }
 
 void generatevectors(std::vector<double> &angletheta, std::vector<double> &anglephi, int seedtheta, int seedphi, int caso){
+    double angle = (109.5/180.0)*M_PI;
     if (caso == 1){
         std::fill(anglephi.begin(),anglephi.end(),(M_PI/2.0));
         randanggen(angletheta, seedtheta);
@@ -38,7 +39,7 @@ void generatevectors(std::vector<double> &angletheta, std::vector<double> &angle
         randanggen(angletheta, seedtheta);
         randanggenaux(anglephi, seedphi);
     } else if(caso == 3){
-        std::fill(angletheta.begin(),angletheta.end(),(109.5/180.0)*M_PI);
+        std::generate(angletheta.begin(), angletheta.end(), [multiplo = 1, angle]() mutable { return angle * (multiplo++); });
         randanggen(anglephi, seedphi);
     }
 }
