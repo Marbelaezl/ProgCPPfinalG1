@@ -55,3 +55,38 @@ double dist3d(const std::vector<std::vector<double>> &positions){
   int N = positions.size() -1; // Último índice accesible
   return std::sqrt(std::pow((positions[0][0]-positions[N][0]),2) + std::pow((positions[0][1]-positions[N][1]),2) + std::pow((positions[0][2]-positions[N][2]),2));
 }
+
+double mean_dist (const std::vector<std::vector<double>>&positions, int a){
+  int N = positions.size() -1; // Último índice accesible
+  int M = positions[0].size() -1; //Tamaño de los vectores dentro de positions
+  double mean_dist = 0.0;
+  int b = 0;
+  for (int ii = 0; ii <= N-a; ii++){
+    double square = 0.0;
+    for (int i = 0; i <= M; i++){
+      square += std::pow ((positions[ii][i] - positions [a+ii][i]), 2);
+    }
+  square = std::sqrt(square);
+  b += 1;
+  mean_dist += square;
+  }
+  return mean_dist/b;
+}
+std::vector<std::vector<double>> unstable (const std::vector<std::vector<double>>&positions){
+  int N = positions.size() - 1; // Último índice accesible
+  int M = positions[0].size() - 1; //Tamaño de los vectores dentro de positions
+  std::vector<std::vector<double>> c;
+  for (int i = 0; i <= N; i++){
+    for (int ii = i+2; ii <= N; ii++){
+      double square = 0.0;
+      for (int x = 0; x <= M; x++){
+        square += std::pow ((positions[i][x] - positions [ii][x]), 2);
+      }
+      if (std::sqrt(square) < 1){
+        c.push_back (positions[i]);
+        c.push_back (positions[ii]);
+      }
+    }
+  }
+  return c;
+}
