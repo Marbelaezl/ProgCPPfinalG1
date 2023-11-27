@@ -20,4 +20,5 @@ void generatevectors(std::vector<double> &angletheta, std::vector<double> &angle
 
 double mean_dist (const std::vector<std::vector<double>>&positions, int a);
 
-std::vector<std::vector<double>> unstable (const std::vector<std::vector<double>>&positions);
+int unstable (const std::vector<std::vector<double>> &positions);
+std::vector<double> c_mass(std::vector<std::vector<double>> &positions);
