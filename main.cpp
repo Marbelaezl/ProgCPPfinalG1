@@ -68,6 +68,11 @@ int main(int argc, char**argv){
     }
     longitud.close();
     }
-
+    std::ofstream cm("cm.txt");
+    std::vector<double> center_mass = c_mass(pos);
+    for (auto val : center_mass){
+      cm << val << " ";
+    }
+    cm.close();
     return 0;
 }
