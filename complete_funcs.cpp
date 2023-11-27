@@ -72,21 +72,47 @@ double mean_dist (const std::vector<std::vector<double>>&positions, int a){
   }
   return mean_dist/b;
 }
-std::vector<std::vector<double>> unstable (const std::vector<std::vector<double>>&positions){
-  int N = positions.size() - 1; // Último índice accesible
-  int M = positions[0].size() - 1; //Tamaño de los vectores dentro de positions
-  std::vector<std::vector<double>> c;
-  for (int i = 0; i <= N; i++){
-    for (int ii = i+2; ii <= N; ii++){
+#include <cmath>
+#include <vector>
+
+int unstable(const std::vector<std::vector<double>> &positions) {
+  int N = positions.size() - 1; // Last accessible index
+  int M = positions[0].size() - 1; // Size of vectors inside positions
+  int c = 0;
+
+  for (int i = 0; i <= N; ++i) {
+    for (int ii = i + 2; ii <= N; ++ii) {
       double square = 0.0;
-      for (int x = 0; x <= M; x++){
-        square += std::pow ((positions[i][x] - positions [ii][x]), 2);
+
+      for (int x = 0; x <= M; ++x) {
+        square += std::pow((positions[i][x] - positions[ii][x]), 2);
       }
-      if (std::sqrt(square) < 1){
-        c.push_back (positions[i]);
-        c.push_back (positions[ii]);
+
+      if (std::sqrt(square) < 1.0) {
+        c += 1;
       }
     }
   }
+
   return c;
+}
+
+
+std::vector<double> c_mass(std::vector<std::vector<double>> &positions) {
+  int N = positions.size() - 1;   // Last accessible index
+  int M = positions[0].size() - 1; // Size of vectors inside positions
+
+  std::vector<double> CM(M + 1, 0.0);
+
+  for (int i = 0; i <= M; i++) {
+    double sum_i = 0.0;
+
+    for (int x = 0; x <= N; x++) {
+      sum_i += positions[x][i];
+    }
+
+    CM[i] = sum_i / (N + 1);
+  }
+
+  return CM;
 }
