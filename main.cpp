@@ -50,29 +50,40 @@ int main(int argc, char**argv){
     print(pos,fout);
 
     fout.close();
+    
+    //Generate data for partial lenghts
+    std::ofstream lenghts ("1-"+nombre);
+    for (int i= 1; i < N; i++){
+
+      lenghts << i << " " << mean_dist(pos,i) << "\n";
+    }
 
     //Generate data for length and unstable positions histogram
     if (argc==7){
-    std::ofstream longitud(argv[6]);
+      std::string nombre2 = argv[6];
+    std::ofstream longitud(nombre2);
+    std::ofstream cm("1-"+nombre2);
     for (int i=0; i < 3000; i++){
       longitud << i << " ";
+      cm << i << " ";
       for (int j=1; j < 4; j++){
       generatevectors(theta, phi, i, i, j);
       genposition(pos, theta, phi);
-      longitud  << dist3d(pos) <<" " << unstable(pos).size();
+      longitud  << dist3d(pos) <<" " << unstable(pos);
+      cm << c_mass(pos)[0] << " " << c_mass(pos)[1] << " " << c_mass(pos)[2];
       if(j!=3){
 	longitud << " ";
+	cm << " ";
       }
       }
     longitud << "\n";
+    cm << "\n";
     }
     longitud.close();
-    }
-    std::ofstream cm("cm.txt");
-    std::vector<double> center_mass = c_mass(pos);
-    for (auto val : center_mass){
-      cm << val << " ";
-    }
     cm.close();
+
+    }
+
+
     return 0;
 }
