@@ -31,7 +31,6 @@ from vtkmodules.vtkCommonCore import (
 
 data = np.genfromtxt("data.txt") #Modificar para datos con otros nombres
 
-data[:,2] *= 3
 def main():
     colors = vtkNamedColors()
     # Set the background color.
