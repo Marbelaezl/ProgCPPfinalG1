@@ -34,7 +34,7 @@ data = np.genfromtxt("data.txt") #Modificar para datos con otros nombres
 def main():
     colors = vtkNamedColors()
     # Set the background color.
-    bkg = map(lambda x: x / 255.0, [0, 0, 0, 255])
+    bkg = map(lambda x: x / 255.0, [255, 255, 255, 255])
     colors.SetColor("BkgColor", *bkg)
 
 
@@ -49,7 +49,7 @@ def main():
         #Se genera cada vez el átomo y el cilindro que representa el enlace. El último átomo no tiene enlace, así que se guarda aparte
         atom = vtkSphereSource()
         atom.SetCenter(data[i,0],data[i,1],data[i,2])
-        r=0.05
+        r=0.3
         atom.SetRadius(r)
         atom.SetPhiResolution(100)
         atom.SetThetaResolution(100)
@@ -95,10 +95,10 @@ def main():
         atomActor = vtkActor()
         atomActor.SetMapper(atomMapper)
         
-        atomActor.GetProperty().SetColor(colors.GetColor3d("White"))
+        atomActor.GetProperty().SetColor(colors.GetColor3d("Green"))
         bondMapper.SetInputConnection(bond.GetOutputPort())
         bondActor.SetUserMatrix(transform.GetMatrix())
-        bondActor.GetProperty().SetColor(colors.GetColor3d("Yellow"))
+        bondActor.GetProperty().SetColor(colors.GetColor3d("Red"))
         
         bondActor.SetMapper(bondMapper)
         # cylinderActor.RotateX(30.0)
